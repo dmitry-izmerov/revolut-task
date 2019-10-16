@@ -1,0 +1,15 @@
+micronaut:
+  application:
+    name: revolut-task
+
+datasources:
+  default:
+    url: jdbc:h2:mem:default;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;INIT=RUNSCRIPT FROM 'classpath:schema.sql'\;RUNSCRIPT FROM 'classpath:init-dev-db.sql'
+    username: sa
+    password: ""
+    driverClassName: org.h2.Driver
+
+jooq:
+  datasources:
+    default:
+      sql-dialect: 'H2'

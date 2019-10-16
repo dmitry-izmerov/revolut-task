@@ -1,0 +1,5 @@
+profile: service
+defaultPackage: revolut.task
+---
+testFramework: junit
+sourceLanguage: kotlin
