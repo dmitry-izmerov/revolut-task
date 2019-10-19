@@ -50,7 +50,7 @@ class AccountControllerTest {
             client.toBlocking().exchange(HttpRequest.GET<Any>("/accounts/$id"), AccountDto::class.java)
             fail<Any>()
         } catch (e: HttpClientResponseException) {
-            assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, e.response.status)
+            assertEquals(HttpStatus.NOT_FOUND, e.response.status)
         }
     }
 
