@@ -1,9 +1,9 @@
 package revolut.task.service
 
+import revolut.task.exception.BadRequestException
 import revolut.task.model.Account
 import revolut.task.model.Transfer
 import revolut.task.repository.AccountRepository
-import java.lang.RuntimeException
 import java.math.BigDecimal
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -34,11 +34,11 @@ class AccountServiceImpl(@Inject private val repository: AccountRepository) : Ac
 
     private fun validate(transfer: Transfer) {
         if (transfer.amount!! < BigDecimal.ZERO || transfer.amount == BigDecimal.ZERO) {
-            throw RuntimeException("Transfer amount should be positive number.")
+            throw BadRequestException("Transfer amount should be positive number.")
         }
 
         if (transfer.fromAccount == transfer.toAccount) {
-            throw RuntimeException("Cannot transfer money from to the same account.")
+            throw BadRequestException("Cannot transfer money from to the same account.")
         }
 
         val fromAccount = repository.findById(transfer.fromAccount!!)
@@ -47,10 +47,10 @@ class AccountServiceImpl(@Inject private val repository: AccountRepository) : Ac
         val toAccountCurrency = toAccount.currency.toString()
         val transferCurrency = transfer.currency.toString()
         if (fromAccountCurrency != toAccountCurrency) {
-            throw RuntimeException("Accounts should have the same currency.")
+            throw BadRequestException("Accounts should have the same currency.")
         }
         if (fromAccountCurrency != transferCurrency) {
-            throw RuntimeException("Currency of transfer should match with account's currency.")
+            throw BadRequestException("Currency of transfer should match with account's currency.")
         }
     }
 }
