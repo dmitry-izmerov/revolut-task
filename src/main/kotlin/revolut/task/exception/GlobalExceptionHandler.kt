@@ -16,7 +16,12 @@ class GlobalExceptionHandler : ExceptionHandler<Exception, HttpResponse<*>> {
     private val logger = LoggerFactory.getLogger(javaClass)
 
     override fun handle(request: HttpRequest<*>?, exception: Exception?): HttpResponse<*> {
+        val response = when (exception) {
+            is BadRequestException -> HttpResponse.badRequest<Any>()
+            is NotFoundException -> HttpResponse.notFound<Any>()
+            else -> HttpResponse.serverError<Any>()
+        }
         logger.error("Error happened", exception)
-        return HttpResponse.serverError<Any>()
+        return response
     }
 }
