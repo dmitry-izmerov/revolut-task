@@ -13,10 +13,6 @@
 <!--        <appender-ref ref="STDOUT"/>-->
 <!--    </logger>-->
 
-    <logger name="org.h2" level="debug">
-        <appender-ref ref="STDOUT"/>
-    </logger>
-
     <root level="info">
         <appender-ref ref="STDOUT" />
     </root>
